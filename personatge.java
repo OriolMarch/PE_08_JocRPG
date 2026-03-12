@@ -39,6 +39,30 @@ public class personatge {
         this.defensat = false;
         this.armes = new ArrayList<>();
         this.armaEquipada = null;
+        
+    }
 
+    public void afegirArma(arma arma){
+        armes.add(arma);
+    }
+
+    public void mostrarArmes(){
+        if(armes.isEmpty()){
+            System.out.println("No tens armes.");
+        } else {
+            System.out.println("Armes:");
+            for(int i = 0; i < armes.size(); i++){
+                System.out.println((i+1) + ". " + armes.get(i).getNom());
+            }
+        }
+    }
+
+    public void equiparArma(int posicio){
+        if(posicio < 1 || posicio > armes.size()){
+            System.out.println("Posició no vàlida.");
+        } else {
+            armaEquipada = armes.get(posicio - 1);
+            System.out.println("Has equipat: " + armaEquipada.getNom());
+        }
     }
 }
