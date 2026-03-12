@@ -1,9 +1,131 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
 public class jocprincipal {
 
+    Scanner sc = new Scanner(System.in);
+    ArrayList<personatge> personatges = new ArrayList<personatge>();
+   public static void main(String[] args) {
+    jocprincipal joc = new jocprincipal();
+    joc.iniciarJoc();
+   }
 
-    public jocprincipal(){
+   public void iniciarJoc(){
+
+    int opcions;
+
+    do {
+        System.out.println("--- Menú Principal ---");
+        System.out.println("1. Crear personatge");
+        System.out.println("2. Mostrar personatges");
+        System.out.println("3. Jugar");
+        System.out.println("0. Sortir");
+        opcions = sc.nextInt();
+        sc.nextLine();
+
+        switch (opcions) {
+            case 1:
+                crearPersonatge();
+                break;
+            case 2:
+                mostrarPersonatges();
+                break;
+            case 3:
+                jugarcombat();
+                break;
+            case 0:
+                System.out.println("Fins aviat!");
+                break;
+            default:
+                System.out.println("Opció no vàlida, torna-ho a intentar.");
+        }
+    } while (opcions != 0);
+
+   }
+
+
+   public void crearPersonatge(){
+    System.out.println("Introdueix nom del personatge:");
+    String nom = sc.nextLine();
+    System.out.println("Introdueix edat del personatge:");
+    int edat = sc.nextInt();
+
+    System.out.println("1) Crear manual");
+    System.out.println("2) Crear aleatori");
+    int tipus = llegirInt();
+
+    personatge p;
+
+    if (tipus == 1) {
+        p = crearPersonatgeManual(nom, edat);
+        
+    }else{
+        p = crearPersonatgeAleatori(nom, edat);
+    }
+
+    afegirArmesAlPersonatge(p);
+    personatges.add(p);
+
+    System.out.println("Personatge creat amb èxit!");
+
+    System.out.println(p);
+   }
+
+   public personatge crearPersonatgeManual(String nom,int edat){
+    int[] stats = new int[6];
+
+    for(int i = 0; i < 6;i++){
+        stats[i] = 5;
+    }
+
+    int puntsRestants = 30;
+
+    String[] nomsStats = {"Força", "Destresa", "Constitució", "Intel·ligència", "Sàvia", "Carisma"};
+
+    while(puntsRestants > 0){
+        System.out.println("Punts restants:" + puntsRestants);
+        for(int i = 0; i < 6;i++){
+            System.out.println((i+1) + ". " + nomsStats[i] + ": " + stats[i]);
+        }
+    }
+    System.out.println("Introdueix el número de la estadística que vols augmentar:")
+    int opcio = llegirInt();
+
+    if (opcio >= 1 && opcio <=6) {
+        System.out.println("opcio incorrecte, torna-ho a intentar");
+    }else{
+        int index = opcio - 1;
+        int maxAugment = 20 - stats[index];
+        
+        if (maxAugment == 0) {
+            System.out.println("Ja esta al maxim, tria una altra estadística");
+        }else{
+            System.out.println("Quants punts vols afegir? ");
+            int punts = llegirInt();
+        }
+    }
+
+    return new personatge(nom, edat, stats[0], stats[1], stats[2], stats[3], stats[4], stats[5]);
+   
 
     }
+
+   }
+
+
+   public int llegirInt(){
+    int num;
+    while(true){
+        try{
+            num = sc.nextInt();
+            sc.nextLine();
+            return num;
+        }catch(InputMismatchException e){
+            System.out.println("Entrada no vàlida, torna-ho a intentar:");
+            sc.nextLine();
+        }
+    }
+   }
 
 
 

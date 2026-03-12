@@ -42,6 +42,11 @@ public class arma {
 
         return tipus + " | dany: " + dany + " | " + tipusArma;
     }
+
+     public String getNom() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getNom'");
+     }
 }
 
 

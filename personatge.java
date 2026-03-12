@@ -100,6 +100,18 @@ public class personatge {
         System.out.println(nom + " ha atacat a " + enemic.nom + " i li ha causat " + dany + " de dany.");
     }
 
+    public void rebreDany(int dany){
+        if (defensat) {
+            dany = dany / 2;
+            System.out.println(nom + " ha defensat i ha reduït el dany a " + dany);
+            defensat = false;
+        }
+        salut = salut - dany;
+        if (salut < 0) {
+            salut = 0;
+        }
+    }
+
     public void regenerarVida(){
         salut = salut + constitucio * 3;
         if (salut > constitucio*50) {
@@ -143,6 +155,6 @@ public class personatge {
             armaString = armaEquipada.getTipus();
         }
 
-        return "Nom:" + nom + "\nEdat: " + edat + "\nForça: " + forca + "\nDestresa: " + destresa + "\nConstitució: " + constitucio
+        return "Nom:" + nom + "\nEdat: " + edat + "\nForça: " + forca + "\nDestresa: " + destresa + "\nConstitució: " + constitucio + "\nIntel·ligència: " + inteligencia + "\nSaviesa: " + saviesa + "\nCarisma: " + carisma + "\nEspecialitat: " + especialitat + "\nSalut: " + salut + "/" + salutMax + "\nMana: " + mana + "/" + manaMax + "\nArma equipada: " + armaString; 
     }
 }
