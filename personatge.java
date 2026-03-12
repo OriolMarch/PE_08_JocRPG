@@ -10,6 +10,7 @@ public class personatge {
     private int inteligencia;
     private int saviesa;
     private int carisma;
+    private String raca;
     private String especialitat;
 
     private int salut;
@@ -22,7 +23,7 @@ public class personatge {
     private ArrayList<arma> armes;
     private arma armaEquipada;
 
-    public personatge(String nom,int edat, int forca,int destresa,int constitucio, int inteligencia, int saviesa, int carisma, String especialitat){
+    public personatge(String nom,int edat, int forca,int destresa,int constitucio, int inteligencia, int saviesa, int carisma, String raca, String especialitat){
         this.nom = nom;
         this.edat = edat;
         this.forca = forca;
@@ -31,6 +32,10 @@ public class personatge {
         this.inteligencia = inteligencia;
         this.saviesa = saviesa;
         this.carisma = carisma;
+        this.raca = raca;
+
+        aplicarRaca();
+
         this.especialitat = especialitat;
         this.salutMax = 10 * constitucio;
         this.salut = salutMax;
@@ -112,6 +117,22 @@ public class personatge {
         }
     }
 
+    public void aplicarRaca(){
+    if (raca.equalsIgnoreCase("Orc")) {
+        forca = forca + 3;
+        constitucio = constitucio + 2;
+        inteligencia = inteligencia - 2;
+        carisma = carisma - 1;
+    }
+    else if (raca.equalsIgnoreCase("Nan")){
+        constitucio = constitucio +3;
+        forca = forca -5;
+        destresa = destresa - 2;
+        carisma = carisma - 1;
+        saviesa = saviesa + 2;
+    }
+    }
+
     public void regenerarVida(){
         salut = salut + constitucio * 3;
         if (salut > constitucio*50) {
@@ -124,6 +145,10 @@ public class personatge {
         if (mana > inteligencia*30) {
             mana = inteligencia*30;
         }
+    }
+
+    public String getRaca() {
+        return raca;
     }
 
     public String getNom() {
@@ -155,6 +180,6 @@ public class personatge {
             armaString = armaEquipada.getTipus();
         }
 
-        return "Nom:" + nom + "\nEdat: " + edat + "\nForça: " + forca + "\nDestresa: " + destresa + "\nConstitució: " + constitucio + "\nIntel·ligència: " + inteligencia + "\nSaviesa: " + saviesa + "\nCarisma: " + carisma + "\nEspecialitat: " + especialitat + "\nSalut: " + salut + "/" + salutMax + "\nMana: " + mana + "/" + manaMax + "\nArma equipada: " + armaString; 
+        return "Nom:" + nom + "\nEdat: " + edat + "\nForça: " + forca + "\nDestresa: " + destresa + "\nConstitució: " + constitucio + "\nIntel·ligència: " + inteligencia + "\nSaviesa: " + saviesa + "\nCarisma: " + carisma + "\nEspecialitat: " + especialitat + "\nSalut: " + salut + "/" + salutMax + "\nMana: " + mana + "/" + manaMax + "\nArma equipada: " + armaString; "\n Raca: " + raca;  
     }
 }
