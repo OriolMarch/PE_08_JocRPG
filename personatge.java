@@ -65,4 +65,38 @@ public class personatge {
             System.out.println("Has equipat: " + armaEquipada.getNom());
         }
     }
+
+    public boolean esquivar(){
+        double probabilitat = (destresa - 5) * 3.33; 
+        double aleatori = Math.random() * 100;
+        return aleatori < probabilitat;
+    
+        
+    }
+
+    public void defensar(){
+        defensat = true;
+        System.out.println(nom + " has defensat aquest torn.");
+    }
+
+    public void atacar(personatge enemic){
+        if(enemic.esquivar()){
+            System.out.println(enemic.nom + "ha esquivat a l'atac de " + nom);
+            return;
+        }
+
+        int dany;
+
+        if (armaEquipada == null) {
+            dany = forca;
+        }else {
+            if (armaEquipada.isMagica()) {
+                dany = armaEquipada.getDany() *  inteligencia / 100;
+            }else {
+                dany = forca * (100 + armaEquipada.getDany()) / 100;
+            }
+        }
+        enemic.rebreDany(dany);
+        System.out.println(nom + " ha atacat a " + enemic.nom + " i li ha causat " + dany + " de dany.");
+    }
 }
