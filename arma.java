@@ -1,6 +1,6 @@
 public class arma {
     
-     private String tipus;
+    private String tipus;
     private int dany;
     private boolean magica;
 
