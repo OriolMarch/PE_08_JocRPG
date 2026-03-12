@@ -99,4 +99,50 @@ public class personatge {
         enemic.rebreDany(dany);
         System.out.println(nom + " ha atacat a " + enemic.nom + " i li ha causat " + dany + " de dany.");
     }
+
+    public void regenerarVida(){
+        salut = salut + constitucio * 3;
+        if (salut > constitucio*50) {
+            salut = constitucio*50;
+        }
+    }
+
+    public void regenerarMana(){
+        mana = mana + inteligencia * 2;
+        if (mana > inteligencia*30) {
+            mana = inteligencia*30;
+        }
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public int getSalut() {
+        return salut;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public boolean estaViu() {
+       if (salut > 0) {
+         return true;
+       } else {
+         return false;
+       }
+    }
+
+    public String toString(){
+        String armaString;
+
+        if(armaEquipada == null){
+            armaString = "Cap arma equipada";
+        } else {
+            armaString = armaEquipada.getTipus();
+        }
+
+        return "Nom:" + nom + "\nEdat: " + edat + "\nForça: " + forca + "\nDestresa: " + destresa + "\nConstitució: " + constitucio
+    }
 }

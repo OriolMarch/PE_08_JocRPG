@@ -1,9 +1,9 @@
-public class jugador {
+public class jugador<personatge> {
     
     private String nom;
-    private Personatge personatge;
+    private personatge personatge;
 
-    public jugador(String nom, Personatge personatge) {
+    public jugador(String nom, personatge personatge) {
         this.nom = nom;
         this.personatge = personatge;
 
@@ -13,11 +13,11 @@ public class jugador {
         return nom;
     }
 
-    public Personatge getPersonatge() {
+    public personatge getPersonatge() {
         return personatge;
     }
 
-    public void setPersonatge(Personatge personatge) {
+    public void setPersonatge(personatge personatge) {
         this.personatge = personatge;
     }
 
