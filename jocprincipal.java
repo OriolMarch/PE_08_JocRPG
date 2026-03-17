@@ -56,7 +56,7 @@ public class jocprincipal {
     System.out.println("2) Crear aleatori");
     int tipus = llegirInt();
 
-    personatge p;
+    personatge p = null;
 
     if (tipus == 1) {
         p = crearPersonatgeManual(nom, edat);
@@ -90,7 +90,7 @@ public class jocprincipal {
             System.out.println((i+1) + ". " + nomsStats[i] + ": " + stats[i]);
         }
     }
-    System.out.println("Introdueix el número de la estadística que vols augmentar:")
+    System.out.println("Introdueix el número de la estadística que vols augmentar:");
     int opcio = llegirInt();
 
     if (opcio >= 1 && opcio <=6) {
@@ -107,7 +107,7 @@ public class jocprincipal {
         }
     }
 
-    String raca;
+    String raca = null;
     return new personatge(nom, edat, stats[0], stats[1], stats[2], stats[3], stats[4], stats[5], nom,raca);
    
 

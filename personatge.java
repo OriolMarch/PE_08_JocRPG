@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+
+// Link GITHUB: https://github.com/OriolMarch/PE_08_JocRPG
+
 public class personatge {
     private String nom;
     private int edat;
@@ -180,6 +183,6 @@ public class personatge {
             armaString = armaEquipada.getTipus();
         }
 
-        return "Nom:" + nom + "\nEdat: " + edat + "\nForça: " + forca + "\nDestresa: " + destresa + "\nConstitució: " + constitucio + "\nIntel·ligència: " + inteligencia + "\nSaviesa: " + saviesa + "\nCarisma: " + carisma + "\nEspecialitat: " + especialitat + "\nSalut: " + salut + "/" + salutMax + "\nMana: " + mana + "/" + manaMax + "\nArma equipada: " + armaString; "\n Raca: " + raca;  
+        return "Nom:" + nom + "\nEdat: " + edat + "\nForça: " + forca + "\nDestresa: " + destresa + "\nConstitució: " + constitucio + "\nIntel·ligència: " + inteligencia + "\nSaviesa: " + saviesa + "\nCarisma: " + carisma + "\nEspecialitat: " + especialitat + "\nSalut: " + salut + "/" + salutMax + "\nMana: " + mana + "/" + manaMax + "\nArma equipada: " + armaString + "\n Raca: " + raca;  
     }
 }
