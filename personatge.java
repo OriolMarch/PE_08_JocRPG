@@ -183,6 +183,8 @@ public class personatge {
             armaString = armaEquipada.getTipus();
         }
 
-        return "Nom:" + nom + "\nEdat: " + edat + "\nForça: " + forca + "\nDestresa: " + destresa + "\nConstitució: " + constitucio + "\nIntel·ligència: " + inteligencia + "\nSaviesa: " + saviesa + "\nCarisma: " + carisma + "\nEspecialitat: " + especialitat + "\nSalut: " + salut + "/" + salutMax + "\nMana: " + mana + "/" + manaMax + "\nArma equipada: " + armaString + "\n Raca: " + raca;  
+        return "Nom:" + nom + "\nEdat: " + edat + "\nForça: " + forca + "\nDestresa: " + destresa + "\nConstitució: " + constitucio + "\nIntel·ligència: " + inteligencia + "\nSaviesa: " + saviesa + "\nCarisma: " + carisma + "\nEspecialitat: " + especialitat + "\nSalut: " + salut + "/" + salutMax + "\nMana: " + mana + "/" + manaMax + "\nArma equipada: " + armaString +  "\n Raca: " + raca;  
     }
 }
+
+// edit: He afegit el mètode estaViu() per comprovar si el personatge està viu o no, i també he corregit un error en el mètode rebreDany() on no es restava el dany a la salut.

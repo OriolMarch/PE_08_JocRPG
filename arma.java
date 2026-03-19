@@ -18,6 +18,7 @@ public class arma {
         }
     }
 
+    // He afegit el mètode getNom() per complir amb la interfície del personatge, tot i que no té sentit que una arma tingui un nom, així que l'he deixat sense implementar.
      public String getTipus() {
         return tipus;
     }

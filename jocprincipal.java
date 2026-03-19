@@ -110,8 +110,10 @@ public class jocprincipal {
     String raca = null;
     return new personatge(nom, edat, stats[0], stats[1], stats[2], stats[3], stats[4], stats[5], nom,raca);
    
-
+ 
     }
+
+    //public personatge crearPersonatgeAleatori(String nom, int edat){
 
     public void mostrarPersonatges(){
         if (personatges.isEmpty()) {

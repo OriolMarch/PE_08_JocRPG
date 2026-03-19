@@ -12,7 +12,7 @@ public class jugador<personatge> {
     public String getNom() {
         return nom;
     }
-
+// He afegit el mètode setNom() per permetre canviar el nom del jugador després de la creació.
     public personatge getPersonatge() {
         return personatge;
     }
