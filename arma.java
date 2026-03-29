@@ -1,5 +1,5 @@
 public class arma {
-    
+
     private String tipus;
     private int dany;
     private boolean magica;
@@ -18,8 +18,7 @@ public class arma {
         }
     }
 
-    // He afegit el mètode getNom() per complir amb la interfície del personatge, tot i que no té sentit que una arma tingui un nom, així que l'he deixat sense implementar.
-     public String getTipus() {
+    public String getTipus() {
         return tipus;
     }
 
@@ -31,25 +30,16 @@ public class arma {
         return magica;
     }
 
-     @Override
+    @Override
     public String toString() {
         String tipusArma;
 
         if (magica) {
-            tipusArma = "magica";
+            tipusArma = "màgica";
         } else {
-            tipusArma = "fisica";
+            tipusArma = "física";
         }
 
         return tipus + " | dany: " + dany + " | " + tipusArma;
     }
-
-     public String getNom() {
-     
-        throw new UnsupportedOperationException("Unimplemented method 'getNom'");
-     }
 }
-
-
-
-

@@ -1,18 +1,17 @@
-public class jugador<personatge> {
-    
+public class jugador {
+
     private String nom;
     private personatge personatge;
 
     public jugador(String nom, personatge personatge) {
         this.nom = nom;
         this.personatge = personatge;
-
     }
 
     public String getNom() {
         return nom;
     }
-// He afegit el mètode setNom() per permetre canviar el nom del jugador després de la creació.
+
     public personatge getPersonatge() {
         return personatge;
     }
@@ -21,8 +20,8 @@ public class jugador<personatge> {
         this.personatge = personatge;
     }
 
-     @Override
-     public String toString() {
-         return "Jugador: " + nom + "\n" + personatge.toString();
-     }
+    @Override
+    public String toString() {
+        return "Jugador: " + nom + "\n" + personatge.toString();
+    }
 }

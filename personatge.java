@@ -1,20 +1,16 @@
 import java.util.ArrayList;
 
+public abstract class personatge {
 
-// Link GITHUB: https://github.com/OriolMarch/PE_08_JocRPG
-
-public class personatge {
     private String nom;
     private int edat;
 
     private int forca;
-    private int destresa;
-    private int constitucio;
-    private int inteligencia;
+    protected int destresa;
+    protected int constitucio;
+    public int inteligencia;
     private int saviesa;
     private int carisma;
-    private String raca;
-    private String especialitat;
 
     private int salut;
     private int salutMax;
@@ -26,7 +22,8 @@ public class personatge {
     private ArrayList<arma> armes;
     private arma armaEquipada;
 
-    public personatge(String nom,int edat, int forca,int destresa,int constitucio, int inteligencia, int saviesa, int carisma, String raca, String especialitat){
+    public personatge(String nom, int edat, int forca, int destresa, int constitucio,
+                      int inteligencia, int saviesa, int carisma) {
         this.nom = nom;
         this.edat = edat;
         this.forca = forca;
@@ -35,123 +32,183 @@ public class personatge {
         this.inteligencia = inteligencia;
         this.saviesa = saviesa;
         this.carisma = carisma;
-        this.raca = raca;
 
-        aplicarRaca();
-
-        this.especialitat = especialitat;
-        this.salutMax = 10 * constitucio;
-        this.salut = salutMax;
-        this.manaMax = 10 * inteligencia;
-        this.mana = manaMax;
         this.defensat = false;
-        this.armes = new ArrayList<>();
+        this.armes = new ArrayList<arma>();
         this.armaEquipada = null;
-        
     }
 
-    public void afegirArma(arma arma){
-        armes.add(arma);
-    }
-
-    public void mostrarArmes(){
-        if(armes.isEmpty()){
-            System.out.println("No tens armes.");
-        } else {
-            System.out.println("Armes:");
-            for(int i = 0; i < armes.size(); i++){
-                System.out.println((i+1) + ". " + armes.get(i).getNom());
+    protected void sumarAmbMaxim(int valor, String caracteristica) {
+        if (caracteristica.equalsIgnoreCase("forca")) {
+            forca = forca + valor;
+            if (forca > 20) {
+                forca = 20;
+            }
+        } else if (caracteristica.equalsIgnoreCase("destresa")) {
+            destresa = destresa + valor;
+            if (destresa > 20) {
+                destresa = 20;
+            }
+        } else if (caracteristica.equalsIgnoreCase("constitucio")) {
+            constitucio = constitucio + valor;
+            if (constitucio > 20) {
+                constitucio = 20;
+            }
+        } else if (caracteristica.equalsIgnoreCase("inteligencia")) {
+            inteligencia = inteligencia + valor;
+            if (inteligencia > 20) {
+                inteligencia = 20;
+            }
+        } else if (caracteristica.equalsIgnoreCase("saviesa")) {
+            saviesa = saviesa + valor;
+            if (saviesa > 20) {
+                saviesa = 20;
+            }
+        } else if (caracteristica.equalsIgnoreCase("carisma")) {
+            carisma = carisma + valor;
+            if (carisma > 20) {
+                carisma = 20;
             }
         }
     }
 
-    public void equiparArma(int posicio){
-        if(posicio < 1 || posicio > armes.size()){
+    protected void recalcularValorsMaxims() {
+        salutMax = constitucio * 50;
+        manaMax = inteligencia * 30;
+        salut = salutMax;
+        mana = manaMax;
+    }
+
+    public abstract void aplicarModificadorsRacials();
+
+    public String getRaca() {
+        return this.getClass().getSimpleName();
+    }
+
+    public void afegirArma(arma armaNova) {
+        armes.add(armaNova);
+    }
+
+    public void mostrarArmes() {
+        if (armes.isEmpty()) {
+            System.out.println("Aquest personatge no té armes.");
+        } else {
+            for (int i = 0; i < armes.size(); i++) {
+                System.out.println((i + 1) + ". " + armes.get(i));
+            }
+        }
+    }
+
+    public boolean potEquiparArma(arma armaNova) {
+        if (armaNova.isMagica() && inteligencia < 10) {
+            System.out.println("No tens prou intel·ligència per equipar una arma màgica.");
+            return false;
+        }
+        return true;
+    }
+
+    public void equiparArma(int posicio) {
+        if (posicio < 1 || posicio > armes.size()) {
             System.out.println("Posició no vàlida.");
         } else {
-            armaEquipada = armes.get(posicio - 1);
-            System.out.println("Has equipat: " + armaEquipada.getNom());
+            arma armaNova = armes.get(posicio - 1);
+
+            if (potEquiparArma(armaNova)) {
+                armaEquipada = armaNova;
+                System.out.println(nom + " ha equipat " + armaEquipada.getTipus());
+            }
         }
     }
 
-    public boolean esquivar(){
-        double probabilitat = (destresa - 5) * 3.33; 
+    public boolean esquivar() {
+        double probabilitat = (destresa - 5) * 3.33;
         double aleatori = Math.random() * 100;
         return aleatori < probabilitat;
-    
-        
     }
 
-    public void defensar(){
+    public void defensar() {
         defensat = true;
-        System.out.println(nom + " has defensat aquest torn.");
+        System.out.println(nom + " es defensa aquest torn.");
     }
 
-    public void atacar(personatge enemic){
-        if(enemic.esquivar()){
-            System.out.println(enemic.nom + "ha esquivat a l'atac de " + nom);
-            return;
-        }
+    public double getMultiplicadorAtac() {
+        return 1.0;
+    }
 
+    public int calcularDanyBase() {
         int dany;
 
         if (armaEquipada == null) {
             dany = forca;
-        }else {
+        } else {
             if (armaEquipada.isMagica()) {
-                dany = armaEquipada.getDany() *  inteligencia / 100;
-            }else {
+                dany = armaEquipada.getDany() * inteligencia / 100;
+            } else {
                 dany = forca * (100 + armaEquipada.getDany()) / 100;
             }
         }
+
+        dany = (int) Math.round(dany * getMultiplicadorAtac());
+
+        if (dany < 0) {
+            dany = 0;
+        }
+
+        return dany;
+    }
+
+    public void atacar(personatge enemic) {
+        if (enemic.esquivar()) {
+            System.out.println(enemic.nom + " ha esquivat l'atac de " + nom + ".");
+            return;
+        }
+
+        int dany = calcularDanyBase();
         enemic.rebreDany(dany);
+
         System.out.println(nom + " ha atacat a " + enemic.nom + " i li ha causat " + dany + " de dany.");
     }
 
-    public void rebreDany(int dany){
+    public double getMultiplicadorDefensa() {
+        return 0.5;
+    }
+
+    public void rebreDany(int dany) {
         if (defensat) {
-            dany = dany / 2;
-            System.out.println(nom + " ha defensat i ha reduït el dany a " + dany);
+            dany = (int) Math.round(dany * getMultiplicadorDefensa());
+            System.out.println(nom + " s'ha defensat i ara rep " + dany + " de dany.");
             defensat = false;
         }
+
         salut = salut - dany;
+
         if (salut < 0) {
             salut = 0;
         }
     }
 
-    public void aplicarRaca(){
-    if (raca.equalsIgnoreCase("Orc")) {
-        forca = forca + 3;
-        constitucio = constitucio + 2;
-        inteligencia = inteligencia - 2;
-        carisma = carisma - 1;
-    }
-    else if (raca.equalsIgnoreCase("Nan")){
-        constitucio = constitucio +3;
-        forca = forca -5;
-        destresa = destresa - 2;
-        carisma = carisma - 1;
-        saviesa = saviesa + 2;
-    }
+    public int getRegeneracioVida() {
+        return constitucio * 3;
     }
 
-    public void regenerarVida(){
-        salut = salut + constitucio * 3;
-        if (salut > constitucio*50) {
-            salut = constitucio*50;
+    public int getRegeneracioMana() {
+        return inteligencia * 2;
+    }
+
+    public void regenerarVida() {
+        salut = salut + getRegeneracioVida();
+
+        if (salut > salutMax) {
+            salut = salutMax;
         }
     }
 
-    public void regenerarMana(){
-        mana = mana + inteligencia * 2;
-        if (mana > inteligencia*30) {
-            mana = inteligencia*30;
-        }
-    }
+    public void regenerarMana() {
+        mana = mana + getRegeneracioMana();
 
-    public String getRaca() {
-        return raca;
+        if (mana > manaMax) {
+            mana = manaMax;
+        }
     }
 
     public String getNom() {
@@ -167,23 +224,32 @@ public class personatge {
     }
 
     public boolean estaViu() {
-       if (salut > 0) {
-         return true;
-       } else {
-         return false;
-       }
+        return salut > 0;
     }
 
-    public String toString(){
+    @Override
+    public String toString() {
         String armaString;
 
-        if(armaEquipada == null){
+        if (armaEquipada == null) {
             armaString = "Cap arma equipada";
         } else {
             armaString = armaEquipada.getTipus();
         }
 
-        return "Nom:" + nom + "\nEdat: " + edat + "\nForça: " + forca + "\nDestresa: " + destresa + "\nConstitució: " + constitucio + "\nIntel·ligència: " + inteligencia + "\nSaviesa: " + saviesa + "\nCarisma: " + carisma + "\nEspecialitat: " + especialitat + "\nSalut: " + salut + "/" + salutMax + "\nMana: " + mana + "/" + manaMax + "\nArma equipada: " + armaString +  "\n Raca: " + raca;  
+        return "Nom: " + nom +
+               "\nRaça: " + getRaca() +
+               "\nEdat: " + edat +
+               "\nForça: " + forca +
+               "\nDestresa: " + destresa +
+               "\nConstitució: " + constitucio +
+               "\nIntel·ligència: " + inteligencia +
+               "\nSaviesa: " + saviesa +
+               "\nCarisma: " + carisma +
+               "\nSalut: " + salut + "/" + salutMax +
+               "\nMana: " + mana + "/" + manaMax +
+               "\nArma equipada: " + armaString +
+               "\nNombre d'armes: " + armes.size();
     }
 }
 
